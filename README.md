@@ -22,7 +22,7 @@ sudo apt upgrade
 ```
 
 
-# Installing Nginx webserver
+## Installing Nginx webserver
 
 * Intsall Nginx
 ```bash
@@ -40,7 +40,7 @@ sudo ufw status
 Note: if ufw not enabled enable it using command `sudo ufw enable` but make sure OpenSSH is also allowed in ufw apps before enabling ufw.
 
 
-# Installing and Configuring MySQL
+## Installing and Configuring MySQL
 
 * Install mysql
 ```bash
@@ -64,14 +64,14 @@ EXIT;
 ```
 *replace your_username your_database_name and your_password*
 
-# Install PHP
+## Install PHP
 
 * To install the php8.1-fpm and php-mysql packages, run:
 ```bash
 sudo apt install php8.1-fpm php-mysql
 ```
 
-# NGINX Configuration and SSL installation
+## NGINX Configuration and SSL installation
 
 * Create a configuration file for your website
 ```bash
@@ -128,9 +128,16 @@ sudo certbot --nginx -d your_domain
 
 * Test SSL certificate using https://yourdomain
 
+* A cron file is automatically added during the installation of Certbot and we can find it in the `/etc/cron.d/certbot` directory. In case it’s not available, we need to create it. and add below lines.
+```bash
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+0 */12 * * * root certbot -q renew --nginx
+```
+
 * Additional Security using Nginx configuration file by adding below blocks in server block
 ```bash
-# Protection against click-jacking
+    # Protection against click-jacking
     add_header X-Frame-Options “SAMEORIGIN”;
 
     # Protection against MIME-TYPE sniffing
@@ -175,7 +182,7 @@ sudo certbot --nginx -d your_domain
     }
 ```
 
-# WordPress Installation and Configuration
+## WordPress Installation and Configuration
 
 * Run below commands to set
 ```bash
@@ -183,8 +190,8 @@ sudo mkdir -p /path/to/your/project
 sudo usermod -aG your_user www-data
 sudo chown -R your_user:www-data /path/to/your/project
 sudo chmod -R 775 /path/to/your/project
-curl -O https://wordpress.org/latest.tar.gz
-tar -xvzf latest.tar.gz --strip-components=1
+wget https://wordpress.org/latest.tar.gz
+tar -xvzf latest.tar.gz
 cp wp-config-sample.php wp-config.php
 ```
 *replace your_user with your unix user and /path/to/your/project with project path*
@@ -202,7 +209,7 @@ define('DB_PASSWORD', 'your_password');
 ```
 * Make sure wordpress is working fine
 
-# Setting up Github Actions for deployment
+## Setting up Github Actions for deployment
 
 *  Create a .github/workflows directory.
 * Inside this directory, create a YAML file (e.g., deploy.yml) for your GitHub Actions workflow:
@@ -246,7 +253,7 @@ jobs:
           target: "path/to/your/project"
 ```
 
-## Setting up secrets in your GitHub repository settings for PRODUCTION_SERVER_HOST, PRODUCTION_SERVER_USERNAME, and PRODUCTION_SERVER_SSH_KEY. These will be used for secure SSH authentication.
+### Setting up secrets in your GitHub repository settings for PRODUCTION_SERVER_HOST, PRODUCTION_SERVER_USERNAME, and PRODUCTION_SERVER_SSH_KEY. These will be used for secure SSH authentication.
 
 * Generate an SSH Key
 
