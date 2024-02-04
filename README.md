@@ -296,3 +296,56 @@ on your server, you can copy the private key from
 ```bash
 cat ~/.ssh/id_rsa
 ```
+
+## Additional Features that can be implemented
+
+### Security
+
+* ModSecurity WAF can be enabled with nginx for additional security. For steps refer to https://www.linode.com/docs/guides/securing-nginx-with-modsecurity/
+
+### Monitoring 
+
+* Setup website and server monitoring like new relic, site24x7 etc.. or on premise monitoring tools you have like prometheus, nagios etc.. I have set up monitoring using new relic.
+
+### Backup
+
+* Setup backups for website files and database and setup cron job to run it periodically
+
+Create a new file, for example, backup.sh:
+```bash
+#!/bin/bash
+
+# Set the paths
+BACKUP_DIR="/path/to/backup"
+WEBSITE_DIR="/path/to/your/wordpress/installation"
+DB_NAME="your_database_name"
+DB_USER="your_database_user"
+DB_PASSWORD="your_database_password"
+
+# Create a backup directory if it doesn't exist
+mkdir -p $BACKUP_DIR
+
+# Backup the database
+mysqldump -u$DB_USER -p$DB_PASSWORD $DB_NAME > $BACKUP_DIR/db_backup_$(date +\%Y\%m\%d).sql
+
+# Backup the website files
+tar -czf $BACKUP_DIR/website_backup_$(date +\%Y\%m\%d).tar.gz -C $WEBSITE_DIR .
+
+# Remove backups older than 7 days (adjust as needed)
+find $BACKUP_DIR -name "db_backup_*" -type f -mtime +7 -exec rm {} \;
+find $BACKUP_DIR -name "website_backup_*" -type f -mtime +7 -exec rm {} \;
+```
+
+Make the script executable:
+```bash
+chmod +x backup.sh
+```
+
+Open the crontab for editing:
+```bash
+crontab -e
+```
+Add the below line to run backups At 00:00 on every Sunday. Adjust timings for your convenience
+```bash
+0 0 * * 0 /path/to/backup.sh
+```
