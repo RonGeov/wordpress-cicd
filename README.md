@@ -1,6 +1,4 @@
-## I have added all file and configuration in Pipeline-Files Directory and the security perameters.
-
-# wordpress-deployment
+# Wordpress Deployment Using Github Actions
 
 This repo containsautomated deployment process for a WordPress website
 using Nginx as the web server, LEMP (Linux, Nginx, MySQL, PHP) stack, and GitHub
