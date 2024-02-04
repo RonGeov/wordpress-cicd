@@ -1,6 +1,6 @@
 # Wordpress Deployment Using Github Actions
 
-This repo containsautomated deployment process for a WordPress website
+This repo contains automated deployment process for a WordPress website
 using Nginx as the web server, LEMP (Linux, Nginx, MySQL, PHP) stack, and GitHub
 Actions as the CI/CD automation tool. The deployment process should follow security
 best practices and ensure optimal performance of the website.
