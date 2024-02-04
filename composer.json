@@ -1,0 +1,17 @@
+{
+    "name": "ron2george/wpcloud.ddnsking.com",
+    "description": "wordpress cicd project",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Ron2george\\WpcloudDdnskingCom\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ron George",
+            "email": "ron2george@gmail.com"
+        }
+    ],
+    "require": {}
+}
